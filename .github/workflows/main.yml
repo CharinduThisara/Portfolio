@@ -1,0 +1,89 @@
+name: DevSecOps CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - master  # Adjust to your default branch
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  sast_scan:
+    name: Static Application Security Testing (SAST)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18  # Use the version your project requires
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run ESLint (SAST)
+        run: npx eslint . --ext .svelte,.js,.ts
+
+      - name: Snyk
+        uses: snyk/actions@0.4.0
+        with:
+          command: test
+          args: --severity-threshold=high # Only report high or critical vulnerabilities
+          json: true # Output a snyk.json file with results          
+          
+  docker_build_and_scan:
+    name: Docker Build and Scan
+    runs-on: ubuntu-latest
+    # needs: sast_scan
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Build Docker Image
+        run: |
+          docker build -t portfolio-app:latest .
+
+      - name: Docker Scout Vulnerability Scan
+        uses: docker/scout-action@v1.16.1
+        with:
+          command: cves # Run vulnerability analysis
+          image: portfolio-app:latest
+          summary: true # Publish results as a GitHub Actions summary
+
+      - name: Save Docker Image as Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: docker-image
+          path: |
+            $(docker save portfolio-app:latest | gzip > portfolio-app.tar.gz && echo portfolio-app.tar.gz)
+
+  build_artifacts:
+    name: Build Artifacts
+    runs-on: ubuntu-latest
+    needs: sast_scan
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Project
+        run: npm run build
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: build/
