@@ -30,7 +30,9 @@ jobs:
         with:
           command: test
           args: --severity-threshold=high # Only report high or critical vulnerabilities
-          json: true # Output a snyk.json file with results          
+          json: true # Output a snyk.json file with results   
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
           
   docker_build_and_scan:
     name: Docker Build and Scan
