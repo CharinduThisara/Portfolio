@@ -44,6 +44,9 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      - name: Docker Setup Docker
+        uses: docker/setup-docker-action@v4.1.0     
+
       - name: Build Docker Image
         run: |
           docker build -t portfolio-app:latest .
@@ -51,9 +54,9 @@ jobs:
       - name: Docker Scout Vulnerability Scan
         uses: docker/scout-action@v1.16.1
         with:
-          command: cves # Run vulnerability analysis
-          image: portfolio-app:latest
-          summary: true # Publish results as a GitHub Actions summary
+          dockerhub-password: ${{ secrets.DOCKER_KEY }}
+          dockerhub-user: ${{ secrets.DOCKER_USERNAME }}
+          command: quickview,cves # Run vulnerability analysis
 
       - name: Save Docker Image as Artifact
         uses: actions/upload-artifact@v3
