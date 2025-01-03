@@ -1,7 +1,6 @@
 # Stage 1: Builder
 FROM node:18.18.0-alpine AS builder
 
-# Set working directory
 WORKDIR /app
 
 # Copy package and lock files
@@ -22,7 +21,6 @@ RUN npm prune --production
 # Stage 2: Deployment
 FROM node:18.18.0-alpine AS deployer
 
-# Set working directory
 WORKDIR /app
 
 # Copy the build output and production dependencies
@@ -33,8 +31,6 @@ COPY --from=builder /app/package.json .
 # Expose the application port
 EXPOSE 3000
 
-# Set environment variable for production
 ENV NODE_ENV=production
 
-# Run the SvelteKit app in production mode
 CMD ["node", "build"]

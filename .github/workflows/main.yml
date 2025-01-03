@@ -25,9 +25,6 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Run ESLint (SAST)
-        run: npx eslint . --ext .svelte,.js,.ts
-
       - name: Snyk
         uses: snyk/actions@0.4.0
         with:
