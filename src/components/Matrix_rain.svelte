@@ -26,7 +26,7 @@
   
       function drawMatrix() {
         if (context) {
-          context.fillStyle = "rgba(200, 200, 200, 0.1)"; // Semi-transparent black background
+          context.fillStyle = "rgba(100, 100, 100 , 0.04)"; // Semi-transparent black background
           context.fillRect(0, 0, canvas.width, canvas.height);
   
           context.fillStyle = "#0f0"; // Matrix text color
