@@ -1,4 +1,5 @@
 <script lang="ts">
+  import MatrixRain from "$components/Matrix_rain.svelte";
   // Placeholder for future functionality
 </script>
 
@@ -22,6 +23,9 @@
       More About Me >>>
     </a>
   </div>
+
+  <MatrixRain />
+
 
   <!-- Social Media Icons -->
   <div class="absolute bottom-8 flex space-x-6">
