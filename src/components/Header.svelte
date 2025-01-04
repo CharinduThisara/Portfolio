@@ -30,7 +30,7 @@
   role="navigation"
   style="background-position: {mouseX * 50}% {mouseY * 50}%"
 >
-  <div class="container mx-auto flex items-center">
+  <div class="mx-auto flex items-center ml-16">
     <!-- Icon Section -->
     <div class="icon-wrapper relative flex items-center p-5">
       <!-- Show Active Icon -->
