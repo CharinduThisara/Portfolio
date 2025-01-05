@@ -1,6 +1,7 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
   import MatrixRain from "$components/Matrix_rain.svelte";
+  import { on } from 'svelte/events';
   // Placeholder for future functionality
 </script>
 
@@ -17,23 +18,25 @@
       <span class="hidden md:inline text-gray-400">|</span>
       <span>Specialized in Cyber Security</span>
     </p>
-    <div class="relative mt-8 tracking-widest px-8 py-3 border border-white text-white rounded hover:bg-white hover:text-black transition flex justify-center items-center mx-auto w-full md:w-1/2">
+    <button class="relative mt-8 tracking-widest px-8 py-3 border border-white text-white rounded hover:bg-white hover:text-black transition flex justify-center items-center mx-auto w-full md:w-1/2"
+            on:click={() => {
+              window.location.href = "/Portfolio/about";
+    }}>
+
       <a href="/Portfolio/about" class="">
         More About Me 
       </a>
       <Icon icon="ant-design:double-right-outlined" width="30" height="30" style="color: #666" />
-    </div>
+    </button>
   </div>
 
   <MatrixRain />
 
 
   <!-- Social Media Icons -->
-  <div class="absolute bottom-8 flex space-x-6">
-    <a href="#" class="text-white text-xl hover:text-pink-500 transition"><i class="fab fa-facebook-f"></i></a>
-    <a href="#" class="text-white text-xl hover:text-pink-500 transition"><i class="fab fa-behance"></i></a>
-    <a href="#" class="text-white text-xl hover:text-pink-500 transition"><i class="fab fa-twitter"></i></a>
-    <a href="#" class="text-white text-xl hover:text-pink-500 transition"><i class="fab fa-dribbble"></i></a>
-    <a href="#" class="text-white text-xl hover:text-pink-500 transition"><i class="fab fa-instagram"></i></a>
+  <div class="relative flex space-x-6 mt-8 z-10">
+    <a href="https://github.com/CharinduThisara" class="text-white text-xl hover:text-gray-500 transition transform hover:scale-125 duration-300"><Icon icon="fa-brands:github" height="25" width="25" /></a>
+    <a href="https://www.instagram.com/charinduthisara" class="text-white text-xl hover:text-pink-500 transition transform hover:scale-125 duration-300"><Icon icon="fa-brands:instagram" height="25" width="25" /></a>
+    <a href="https://www.facebook.com/charindu.thisara?mibextid=ZbWKwL" class="text-white text-xl hover:text-blue-500 transition transform hover:scale-125 duration-300"><Icon icon="fa-brands:facebook-f" height="25" width="25" /></a>
   </div>
 </section>
