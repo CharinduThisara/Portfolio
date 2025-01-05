@@ -1,7 +1,6 @@
 <script lang="ts">
   import { page } from '$app/stores';  // Import $page store from SvelteKit
   import Icon from '@iconify/svelte';
-  import { writable } from 'svelte/store';
 
   // Define the current route as a writable store (not needed now)
   // const currentRoute = writable('/Portfolio/'); // Default route 
@@ -90,6 +89,17 @@
     }
   }
 
+  @keyframes inactiveFadeOut {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+  }
+
   @keyframes activeFadeIn {
     from {
       opacity: 0;
@@ -98,6 +108,17 @@
     to {
       opacity: 1;
       transform: translateX(0);
+    }
+  }
+
+  @keyframes activeFadeOut {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(20px);
     }
   }
 
@@ -112,6 +133,8 @@
     transition: opacity 0.3s ease, transform 0.3s ease;
     animation: activeFadeIn 0.5s forwards;
   }
+
+  
 
   /* Hover state for the icons */
   .icon-wrapper:hover .hidden-icons {
@@ -149,6 +172,13 @@
     transform: translateX(0);
     animation: inactiveFadeIn 0.5s forwards;
   }
+
+  .icon-wrapper:not(:hover) .hidden-icons a {
+    animation: inactiveFadeOut 0.5s forwards;
+    opacity: 0; /* Ensure visibility is set to 0 */
+    transform: translateX(-20px); /* Ensure it moves off-screen */
+  }
+
 
   /* Mobile responsiveness */
   @media (max-width: 768px) {
