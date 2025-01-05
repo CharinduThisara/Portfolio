@@ -2,6 +2,7 @@
   import Icon from '@iconify/svelte';
   import MatrixRain from "$components/Matrix_rain.svelte";
   import { on } from 'svelte/events';
+  import { goto } from '$app/navigation';
   // Placeholder for future functionality
 </script>
 
@@ -20,10 +21,10 @@
     </p>
     <button class="relative mt-8 tracking-widest px-8 py-3 border border-white text-white rounded hover:bg-white hover:text-black transition flex justify-center items-center mx-auto w-full md:w-1/2"
             on:click={() => {
-              window.location.href = "/Portfolio/about";
+              goto('/Portfolio/about');
     }}>
 
-      <a href="/Portfolio/about" class="">
+      <a href="/Portfolio/about">
         More About Me 
       </a>
       <Icon icon="ant-design:double-right-outlined" width="30" height="30" style="color: #666" />
