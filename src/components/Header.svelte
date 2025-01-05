@@ -22,6 +22,8 @@
   ];
 
   // You no longer need to use currentRoute manually; we'll use $page directly
+  $: activeIcon = icons.find(icon => icon.route === $page.url.pathname);
+
 </script>
 
 <header
@@ -30,7 +32,7 @@
   role="navigation"
   style="background-position: {mouseX * 50}% {mouseY * 50}%"
 >
-  <div class="mx-auto flex items-center ml-16">
+  <div class="mx-auto flex items-center lg:ml-16">
     <!-- Icon Section -->
     <div class="icon-wrapper relative flex items-center p-5">
       <!-- Show Active Icon -->
@@ -73,11 +75,42 @@
 <style>
   .header {
     background: linear-gradient(to top, rgba(185, 166, 166, 0), rgba(0, 0, 0, 0.425)); /* Darker gradient towards the top */
+    text-align: center; /* Center the header content */
+  }
+
+  /* Keyframes for animations */
+  @keyframes inactiveFadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes activeFadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   /* Active icon styling */
   .active-icon {
     transition: opacity 0.3s ease, transform 0.3s ease;
+    animation: activeFadeIn 0.5s forwards;
+  }
+
+  .active-icon a {
+    opacity: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    animation: activeFadeIn 0.5s forwards;
   }
 
   /* Hover state for the icons */
@@ -92,7 +125,7 @@
     display: flex;
     opacity: 0;
     pointer-events: none;
-    transform: translateX(20px);
+    transform: translateX(-20px);
     transition: opacity 0.3s ease-out, transform 0.5s ease-in-out;
   }
 
@@ -100,7 +133,8 @@
   .hidden-icons a {
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     opacity: 0;
-    transform: translateX(20px);
+    transform: translateX(-20px);
+    animation: fadeOut 0.5s forwards;
   }
 
   /* Make icons larger when hovered */
@@ -113,5 +147,42 @@
   .icon-wrapper:hover .hidden-icons a {
     opacity: 1;
     transform: translateX(0);
+    animation: inactiveFadeIn 0.5s forwards;
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    .header {
+      text-align: center; /* Center header content horizontally on mobile */
+      padding: 10px; /* Add padding for better spacing */
+      display: flex; /* Use flexbox for centering */
+      justify-content: center; /* Center content horizontally */
+    }
+
+    .icon-wrapper {
+      flex-direction: row; /* Keep icons in a row on mobile */
+      align-items: center; /* Center align icons */
+      
+    }
+
+    .hidden-icons {
+      flex-direction: row; /* Keep hidden icons in a row */
+      opacity: 1; /* Ensure hidden icons are always visible */
+      pointer-events: auto; /* Enable pointer events */
+      transform: translateX(0); /* No transform needed */
+    }
+
+    .hidden-icons a {
+      transform: translateX(0); /* No transform needed */
+      opacity: 1; /* Ensure icons are fully visible */
+    }
+
+    .icon-wrapper:hover .hidden-icons {
+      transform: translateX(0); /* No transform needed */
+    }
+
+    .icon-wrapper:hover .hidden-icons a {
+      transform: translateX(0); /* No transform needed */
+    }
   }
 </style>

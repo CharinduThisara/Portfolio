@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Icon from '@iconify/svelte';
   import MatrixRain from "$components/Matrix_rain.svelte";
   // Placeholder for future functionality
 </script>
@@ -8,20 +9,20 @@
   <div class="absolute inset-0 bg-black bg-opacity-80"></div>
 
   <!-- Content -->
-  <div class="relative text-center text-white z-10">
-    <h5 class="text-3xl uppercase tracking-widest text-pink-500">Hi,</h5>
-    <h1 class="text-5xl md:text-7xl font-extrabold mt-4">I'm Charindu Thisara.</h1>
-    <p class="text-lg md:text-xl mt-4 font-light flex justify-center space-x-4">
+  <div class="relative text-center text-white z-10 px-4">
+    <h5 class="text-2xl md:text-3xl uppercase tracking-widest text-pink-500">Hi,</h5>
+    <h1 class="text-4xl md:text-5xl lg:text-7xl font-extrabold mt-4">I'm Charindu Thisara.</h1>
+    <p class="text-base md:text-lg lg:text-xl mt-4 font-light flex flex-col md:flex-row justify-center space-y-2 md:space-y-0 md:space-x-4">
       <span>Computer Science and Engineering Undergraduate</span>
-      <span class="text-gray-400">|</span>
+      <span class="hidden md:inline text-gray-400">|</span>
       <span>Specialized in Cyber Security</span>
     </p>
-    <a
-      href="/Portfolio/about"
-      class="mt-8 inline-block px-8 py-3 border border-white text-white rounded hover:bg-white hover:text-black transition"
-    >
-      More About Me >>>
-    </a>
+    <div class="relative mt-8 tracking-widest px-8 py-3 border border-white text-white rounded hover:bg-white hover:text-black transition flex justify-center items-center mx-auto w-full md:w-1/2">
+      <a href="/Portfolio/about" class="">
+        More About Me 
+      </a>
+      <Icon icon="ant-design:double-right-outlined" width="30" height="30" style="color: #666" />
+    </div>
   </div>
 
   <MatrixRain />
